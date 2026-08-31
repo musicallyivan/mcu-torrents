@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": 1788181588549,
+    "title": "Capitana Marvel",
+    "type": "movie",
+    "year": "1995",
+    "quality": "1080p",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",
+    "description": "Carol Danvers se convierte en una de las heroínas más poderosas del universo mientras la Tierra se ve inmersa en un conflicto intergaláctico.",
+    "torrentFile": "https://raw.githubusercontent.com/.../capitana-marvel.torrent",
+    "magnet": "magnet:?xt=urn:btih:abc123..."
+  }
+]
