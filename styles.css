@@ -1,0 +1,722 @@
+:root {
+    --dark-bg: #0b0d12;
+    --dark-surface: #1a1d28;
+    --dark-glass: rgba(26, 29, 40, 0.5);
+    --dark-text: #ffffff;
+    --dark-text-secondary: #a9a9ad;
+    
+    --light-bg: #f5f5f7;
+    --light-surface: #ffffff;
+    --light-glass: rgba(255, 255, 255, 0.6);
+    --light-text: #1a1a1a;
+    --light-text-secondary: #666666;
+    
+    --red: #ff3232;
+    --red-glow: rgba(255, 50, 50, 0.5);
+    --gold: #ffd700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--dark-bg);
+    color: var(--dark-text);
+    transition: background 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated Background */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #0b0d12, #1a1d28, #0b0d12);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body.light-mode .animated-bg {
+    background: linear-gradient(45deg, #f5f5f7, #ffffff, #f5f5f7);
+}
+
+body.light-mode {
+    background: var(--light-bg);
+    color: var(--light-text);
+}
+
+/* Theme Toggle */
+.theme-toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+body.light-mode .theme-toggle {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.header {
+    background: rgba(8, 10, 14, 0.7);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 30px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+body.light-mode .header {
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.logo-section h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 3px;
+    color: var(--red);
+    text-shadow: 0 0 20px var(--red-glow);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--dark-text-secondary);
+    font-weight: 300;
+}
+
+body.light-mode .subtitle {
+    color: var(--light-text-secondary);
+}
+
+.header-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-box {
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--dark-text);
+    font-size: 14px;
+    width: 250px;
+    transition: all 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+}
+
+body.light-mode .search-box {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: var(--light-text);
+}
+
+.search-box:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--red);
+    box-shadow: 0 0 20px var(--red-glow);
+}
+
+.admin-btn {
+    padding: 12px 18px;
+    background: rgba(255, 50, 50, 0.1);
+    border: 1px solid var(--red);
+    color: var(--red);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+}
+
+.admin-btn:hover {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 0 20px var(--red-glow);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--dark-text);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+}
+
+body.light-mode .filter-btn {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: var(--light-text);
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--red);
+}
+
+.filter-btn.active {
+    background: var(--red);
+    color: white;
+    border-color: var(--red);
+    box-shadow: 0 0 20px var(--red-glow);
+}
+
+/* Torrents Grid */
+.torrents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* Glass Panel */
+.glass-panel {
+    background: var(--dark-glass);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+body.light-mode .glass-panel {
+    background: var(--light-glass);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Torrent Card */
+.torrent-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.torrent-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(255, 50, 50, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.card-poster {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 50, 50, 0.1), transparent);
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.quality-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    background: var(--red);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--red);
+    line-height: 1.2;
+}
+
+.card-meta {
+    font-size: 12px;
+    color: var(--dark-text-secondary);
+    margin-bottom: 12px;
+}
+
+body.light-mode .card-meta {
+    color: var(--light-text-secondary);
+}
+
+.card-description {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--dark-text-secondary);
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+body.light-mode .card-description {
+    color: var(--light-text-secondary);
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.btn-magnet {
+    background: var(--red);
+    color: white;
+    flex: 1;
+    box-shadow: 0 0 15px var(--red-glow);
+}
+
+.btn-magnet:hover {
+    background: #ff4444;
+    box-shadow: 0 0 30px var(--red-glow);
+    transform: translateY(-2px);
+}
+
+.btn-download {
+    background: rgba(255, 215, 0, 0.15);
+    color: var(--gold);
+    flex: 1;
+    border: 1px solid var(--gold);
+}
+
+.btn-download:hover {
+    background: rgba(255, 215, 0, 0.25);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-primary {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 0 20px var(--red-glow);
+}
+
+.btn-primary:hover {
+    background: #ff4444;
+    box-shadow: 0 0 40px var(--red-glow);
+}
+
+.btn-edit {
+    background: rgba(255, 215, 0, 0.15);
+    color: var(--gold);
+    flex: 1;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.empty-state h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 16px;
+    color: var(--dark-text-secondary);
+}
+
+/* Modal */
+.modal {
+    width: 90vw;
+    max-width: 900px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--dark-surface);
+    border-radius: 12px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+}
+
+body.light-mode .modal {
+    background: var(--light-surface);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-admin {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content {
+    padding: 30px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.modal-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--dark-text);
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--red);
+    transform: rotate(90deg);
+}
+
+/* Admin Container */
+.admin-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.admin-section h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: var(--red);
+}
+
+/* Form */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body.light-mode .form-group label {
+    color: var(--light-text-secondary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--dark-text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+body.light-mode .form-group input,
+body.light-mode .form-group select,
+body.light-mode .form-group textarea {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--light-text);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--red);
+    box-shadow: 0 0 20px var(--red-glow);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Torrents List */
+.torrents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.torrent-item {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+body.light-mode .torrent-item {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.torrent-item-title {
+    flex: 1;
+}
+
+.torrent-item-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.torrent-item-actions button {
+    padding: 6px 12px;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.torrent-item-actions button:hover {
+    background: #ff4444;
+}
+
+/* Admin Login Modal */
+.modal-login {
+    width: 90vw;
+    max-width: 400px;
+}
+
+.login-container {
+    padding: 40px !important;
+    text-align: center;
+}
+
+.login-container h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--red);
+    text-shadow: 0 0 15px var(--red-glow);
+    margin-bottom: 30px;
+}
+
+.login-hint {
+    font-size: 12px;
+    color: var(--dark-text-secondary);
+    margin-top: 20px;
+}
+
+body.light-mode .login-hint {
+    color: var(--light-text-secondary);
+}
+
+.login-hint code {
+    background: rgba(255, 50, 50, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: var(--red);
+    font-weight: 700;
+}
+
+.btn-full {
+    width: 100% !important;
+}
+
+/* Logout Button */
+.logout-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+    padding: 10px 16px;
+    background: rgba(255, 50, 50, 0.2);
+    border: 1px solid var(--red);
+    color: var(--red);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    backdrop-filter: blur(10px);
+}
+
+.logout-btn:hover {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 0 20px var(--red-glow);
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .header-nav {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .torrents-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .admin-container {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: 95vw;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+}

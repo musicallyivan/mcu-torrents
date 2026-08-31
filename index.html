@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCU Torrents - Descargas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="theme-toggle" title="Cambiar tema">
+            <span class="theme-icon">🌙</span>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1 class="title">MCU TORRENTS</h1>
+                <p class="subtitle">Descargas de películas y series Marvel</p>
+            </div>
+            <nav class="header-nav">
+                <input type="text" id="search-input" class="search-box" placeholder="Buscar película/serie..." />
+                <button id="admin-btn" class="admin-btn" title="Panel Administrador">⚙️ Admin</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filters -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="movie">Películas</button>
+            <button class="filter-btn" data-filter="series">Series</button>
+            <button class="filter-btn" data-filter="special">Especiales</button>
+        </div>
+
+        <!-- Torrents Grid -->
+        <div id="torrents-grid" class="torrents-grid">
+            <!-- Loaded dynamically -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+            <div class="empty-icon">🎬</div>
+            <h2>No hay torrents disponibles</h2>
+            <p>Aún no hay contenido para esta categoría. Vuelve pronto.</p>
+        </div>
+    </main>
+
+    <!-- Admin Login Modal -->
+    <dialog id="admin-login-modal" class="modal modal-login">
+        <div class="login-container glass-panel">
+            <h2>Panel Administrador</h2>
+            <form id="admin-login-form" class="form">
+                <div class="form-group">
+                    <label for="admin-password">Contraseña</label>
+                    <input type="password" id="admin-password" placeholder="Ingresa la contraseña" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Acceder</button>
+                <button type="button" id="cancel-login" class="btn btn-secondary btn-full">Cancelar</button>
+            </form>
+            <!-- <p class="login-hint">💡 Contraseña predeterminada: <code>admin123</code></p> -->
+        </div>
+    </dialog>
+
+    <!-- Admin Modal -->
+    <dialog id="admin-modal" class="modal modal-admin glass-panel">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Panel Administrador</h2>
+                <button id="close-admin-modal" class="close-btn">✕</button>
+            </div>
+
+            <div class="admin-container">
+                <!-- Add Torrent Form -->
+                <div class="admin-section">
+                    <h3>Agregar Torrent</h3>
+                    <form id="add-torrent-form" class="form">
+                        <div class="form-group">
+                            <label for="torrent-title">Título *</label>
+                            <input type="text" id="torrent-title" required placeholder="Nombre de la película/serie" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="torrent-type">Tipo *</label>
+                            <select id="torrent-type" required>
+                                <option value="">Selecciona tipo</option>
+                                <option value="movie">Película</option>
+                                <option value="series">Serie</option>
+                                <option value="special">Especial</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="torrent-year">Año</label>
+                                <input type="number" id="torrent-year" placeholder="2024" />
+                            </div>
+                            <div class="form-group">
+                                <label for="torrent-quality">Calidad</label>
+                                <select id="torrent-quality">
+                                    <option value="">Selecciona calidad</option>
+                                    <option value="720p">720p</option>
+                                    <option value="1080p">1080p</option>
+                                    <option value="4K">4K</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="torrent-magnet">Link Magnet *</label>
+                            <textarea id="torrent-magnet" required placeholder="magnet:?xt=urn:btih:..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="torrent-poster">URL Poster</label>
+                            <input type="url" id="torrent-poster" placeholder="https://..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="torrent-description">Descripción</label>
+                            <textarea id="torrent-description" placeholder="Descripción breve..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Agregar Torrent</button>
+                    </form>
+                </div>
+
+                <!-- Torrents List -->
+                <div class="admin-section">
+                    <h3>Torrents Registrados</h3>
+                    <div id="torrents-list" class="torrents-list">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Torrent Card Template (hidden) -->
+    <template id="torrent-card-template">
+        <div class="torrent-card glass-panel">
+            <div class="card-poster">
+                <img src="" alt="Poster" class="poster-img" />
+                <div class="quality-badge"></div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title"></h3>
+                <p class="card-meta"></p>
+                <p class="card-description"></p>
+                <div class="card-actions">
+                    <button class="btn btn-magnet">
+                        <span>🧲</span> Magnet
+                    </button>
+                    <button class="btn btn-download">
+                        <span>⬇</span> Descargar
+                    </button>
+                    <button class="btn btn-edit" style="display: none;">✏️ Editar</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Logout Button (hidden until logged in) -->
+    <button id="logout-btn" class="logout-btn" style="display: none;" title="Cerrar sesión">
+        🚪 Logout
+    </button>
+
+    <script src="app.js"></script>
+</body>
+</html>
